@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html ng-app="ivprog">
+  <head>
+  <title>iVProgH5 : Visual Programming (LInE-IME-USP)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/font-awesome.css" rel="stylesheet" media="screen" />
+    <link href="css/bootstrap-editable.css" rel="stylesheet" media="screen" />
+    <link href="css/ivprog.css" rel="stylesheet" media="screen" />
+</head>
+
+<body>
+    <div class="header">
+      <h1><img src="img/logo_ivprog.png" title="iVProg" /></h1>
+    </div>
+
+    <h2>&nbsp;iVProg : Visual Programming (LInE-IME-USP)</h2>
+
+    <a href="http://www.usp.br/line" title="Uma das paginas do LInE">LInE</a>.
+    <a href="https://github.com/LInE-IME-USP" title="LInE no GitHub">Software educacional livre</a>.
+    <a href="http://www.usp.br/line/wp" title="Prototipo ambiente LInE">Interatividade na Internet para aprendizagem</a>.
+
+  <script type='text/javascript'>
+    //<![CDATA[
+    var strAnswer = '';
+    var evaluationResult = '';
+    var comment = '';
+
+    function resp () {
+      // 'getEvaluation()' calls 'js/services.js : endTest function(index)' that calls 'getEvaluationCallback(apro/100);'
+      window.frames.iLM.getEvaluation(); // in './mod/iassign/ilm/ivprog-html/js/services.js'; './mod/iassign/ilm/ivprog-html/main.html'
+      // var comment = document.formEnvio.submission_comment.value;
+      // iVProgH5 will call function 'getEvaluationCallback(...)': /var/www/html/ivprogh5/js/services.js
+      }
+
+ function getEvaluationCallback (evaluation) { // ./mod/iassign/ilm/ivprog-html/js/services.js : call this to define the variable 'evaluationResult'
+   evaluationResult = evaluation;
+   strAnswer = window.frames.iLM.getAnswer();
+   comment = document.formEnvio.submission_comment.value;
+   if ((strAnswer==null || strAnswer=='' || strAnswer==-1) && (comment==null || comment=='')) { // undefined
+      alert('Atividade enviada sem conteúdo.');
+      return false; // error...
+   } else { 
+//alert('getEvaluationCallback: enviando evaluationResult=' + evaluation + ', strAnswer=' + strAnswer);
+alert('getEvaluationCallback: ' + document.formEnvio. iLM_PARAM_ArchiveContent.value);
+      document.formEnvio. iLM_PARAM_ArchiveContent.value = strAnswer;
+      document.formEnvio.iLM_PARAM_ActivityEvaluation.value = evaluationResult;
+      document.formEnvio.submit();
+      return true; // success
+      }
+   }
+  //]]>
+  </script>
+
+
+    <div class="bloco">
+    Para adicionar <i>vari&aacute;veis</i> clique no bot&atilde;o <i>Vari&aacute;veis</i>.
+    Para comandos no bot&atilde;o <i>Instru&ccedil;&atilde;o</i>. Para interpretar seu c&oacute;digo, clique no bot&atilde;o <img src="img/botao_rodar.png">
+    (abaixo, ao lado do bot&atilde;o "Limpar console").<br/>
+
+    Ver alguns outros exemplos de codigo no iVProgH5:
+
+    <a href="main.html?lang=en&iLM_PARAM_AssignmentURL=true&iLM_PARAM_Assignment=./exerc/exemplo_n_primeiros_fibonacci.ivph"
+       title="Listar os n primeiros termos da sequencia de Fibonacci">programa para imprimir n primeiros numeros de Fibonaccii</a> ;
+    <a href="main.html?lang=en&iLM_PARAM_AssignmentURL=true&iLM_PARAM_Assignment=./exerc/exerc_ivprogh5_print_constants_1_2.ivph"
+       title="clique para ver um exercicio com avaliacao automatica">exercicio imprimir constantes 1 e 2</a> ;
+    <a href="main.html?lang=en&iLM_PARAM_AssignmentURL=true&iLM_PARAM_Assignment=./exerc/solucao_ivp_aluno1_exerc2.ivph"
+       title="clique para ver solucao 1 exerc 2">Ver solucao 1 exerc 2</a> ;
+    <br/>
+    <!-- ou abaixo para entrar dentro do index,
+    Para examinar um c&oacute;digo simples
+    <a href="main.html?iLM_PARAM_AssignmentURL=true&iLM_PARAM_Assignment=./exerc/exemplo_imprima.ivph#/create/" title="Listar os n primeiros termos da sequencia de Fibonacci">clique aqui</a>.
+    -->
+    </div>
+
+<!--
+Atencao e' preciso que existe PHP para mostrar a acao para gravar (via programa PHP 'gravar.php'.
+
+%3A :
+%2F /
+3D4 =
+-->
+
+ Veja abaixo o iVProgH5 com um exercicio: fazer um algoritmo para imprimir as constantes 1 e 2.<br/>
+ Apos finalizar seu algoritmo clicar no botao "Enviar resposta".
+ <br/>
+
+ <center>
+ <iframe frameborder="0" name="iLM"
+  src="main.html?lang=en&iLM_PARAM_Assignment=./exerc/exerc_ivprogh5_somar2inteiros_digitados.ivph&iLM_PARAM_AssignmentURL=true&MA_PARAM_notSEND=false&MA_PARAM_addresPOST=http%3A%2F%2Flocalhost%2Fmoodle321p%2Fmod%2Fiassign%2Fview.php%3Faction%3Dget_answer%26id%3D2%26iassign_current%3D1%26write_solution%3D0%26userid_iassign%3D2"
+  style="width: 800px; height: 600px;"  id="iLM">
+ </iframe>
+
+  <form name='formEnvio' id='formEnvio' method='post' action='gravar.php' enctype='multipart/form-data'>
+
+  <!-- document.formEnvio.MA_POST_Archive.value           document.formEnvio.MA_POST_Value.value -->
+  <!-- document.formEnvio.iLM_PARAM_ArchiveContent.value  document.formEnvio.iLM_PARAM_ActivityEvaluation.value-->
+  <input type='hidden' name='iLM_PARAM_ArchiveContent' />
+  <input type='hidden' name='iLM_PARAM_ActivityEvaluation' />
+
+  <p><textarea rows='2' cols='60' name='submission_comment'></textarea></p>
+  <input type=button value='Enviar resposta' onclick = 'javascript:window.resp();' title='clique aqui para enviar sua resposta' />
+  </center>
+  </form>
+
+  <div class="foot"><center>
+   <a href="http://www.ime.usp.br/line">LInE</a> |
+   <a href="http://www.matematica.br">iM&aacute;tica</a> |
+   <a href="http://www.usp.br/line/mooc">MOOC</a>
+  </center></div>
+
+  </body>
+</html>

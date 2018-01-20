@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html  dir="ltr" lang="en" xml:lang="en">
+<head>
+    <title>Testes: iGeom, iFractions</title>
+    <link rel="shortcut icon" href="http://localhost/moodle321p/theme/image.php/boost/theme/1510089380/favicon" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, Testes: iGeom, iFractions" />
+<link rel="stylesheet" type="text/css" href="http://localhost/moodle321p/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="http://localhost/moodle321p/theme/styles.php/boost/1510089380/all" />
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"http:\/\/localhost\/moodle321p","sesskey":"xhZcGqPffd","loadingicon":"http:\/\/localhost\/moodle321p\/theme\/image.php\/boost\/core\/1510089380\/i\/loading_small","themerev":"1510089380","slasharguments":1,"theme":"boost","jsrev":"1510089380","admin":"adminleo","svgicons":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":false,"base":"http:\/\/localhost\/moodle321p\/lib\/yuilib\/3.17.2\/","comboBase":"http:\/\/localhost\/moodle321p\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"http:\/\/localhost\/moodle321p\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"http:\/\/localhost\/moodle321p\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"http:\/\/localhost\/moodle321p\/theme\/yui_combo.php?m\/1510089380\/","combine":true,"comboBase":"http:\/\/localhost\/moodle321p\/theme\/yui_combo.php?","ext":false,"root":"m\/1510089380\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader","moodle-core-event"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-formautosubmit":{"requires":["base","event-key"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-calendar-info":{"requires":["base","node","event-mouseenter","event-key","overlay","moodle-calendar-info-skin"]},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-toolboxes":{"requires":["node","base","event-key","node","io","moodle-course-coursebase","moodle-course-util"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":[]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-qtype_ddimageortext-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-qtype_ddimageortext-form":{"requires":["moodle-qtype_ddimageortext-dd","form_filepicker"]},"moodle-qtype_ddmarker-dd":{"requires":["node","event-resize","dd","dd-drop","dd-constrain","graphics"]},"moodle-qtype_ddmarker-form":{"requires":["moodle-qtype_ddmarker-dd","form_filepicker","graphics","escape"]},"moodle-qtype_ddwtos-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-quizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_html-button":{"requires":["moodle-editor_atto-plugin","event-valuechange"]},"moodle-atto_iassign-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"http:\/\/localhost\/moodle321p\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"http:\/\/localhost\/moodle321p\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1510089380\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"http:\/\/localhost\/moodle321p\/lib\/javascript.php\/1510089380\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker"]},"core_comment":{"name":"core_comment","fullpath":"http:\/\/localhost\/moodle321p\/lib\/javascript.php\/1510089380\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdn.mathjax.org\/mathjax\/2.7-latest\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body  id="page-mod-iassign-view" class="format-topics  path-mod path-mod-iassign gecko dir-ltr lang-en yui-skin-sam yui3-skin-sam localhost--moodle321p pagelayout-incourse course-2 context-24 cmid-2 category-1 ">
+
+<div id="page-wrapper">
+
+    <div>
+    <a class="sr-only sr-only-focusable" href="#maincontent">Skip to main content</a>
+</div><script type="text/javascript" src="http://localhost/moodle321p/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js&amp;rollup/1510089380/mcore-min.js"></script><script type="text/javascript" src="http://localhost/moodle321p/lib/javascript.php/1510089380/lib/javascript-static.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+
+    <header role="banner" class="pos-f-t navbar navbar-full navbar-light bg-faded navbar-static-top moodle-has-zindex">
+    
+        <div class="container-fluid navbar-nav">
+    
+            <div data-region="drawer-toggle">
+                <button aria-expanded="false" aria-controls="nav-drawer" type="button" class="btn pull-xs-left m-r-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><span aria-hidden="true">&#9776;</span><span class="sr-only">Expand</span></button>
+            </div>
+    
+            <a href="http://localhost/moodle321p" class="navbar-brand 
+                    hidden-sm-down
+                    ">
+                <span class="site-name hidden-sm-down">saw</span>
+            </a>
+    
+            <!-- user_menu -->
+            <div class="usermenu"><div class="action-menu moodle-actionmenu nowrap-items" id="action-menu-1"data-enhance="moodle-core-actionmenu">
+
+        <div class="menubar" id="action-menu-1-menubar"role="menubar">
+
+            <span class="dropdown">
+    <a href="#" class="dropdown-toggle" id="dropdown-1" title="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="userbutton"><span class="usertext">Aluno 1</span><span class="avatars"><span class="avatar current"><img src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/u/f2" alt="Picture of Aluno 1" title="Picture of Aluno 1" class="userpicture defaultuserpic" width="35" height="35" role="presentation" /></span></span></span><b class="caret"></b></a>
+        <div class="dropdown-menu dropdown-menu-right menu  align-tr-br" id="action-menu-1-menu"data-rel="menu-content"aria-labelledby="action-menu-toggle-1"role="menu"data-align="tr-br" aria-labelledby="dropdown-1">
+            <a href="http://localhost/moodle321p/my/" class="dropdown-item menu-action" role="menuitem"data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/course" />
+<span class="menu-action-text" id="actionmenuaction-1">Dashboard</span></a><div class="dropdown-divider"></div><a href="http://localhost/moodle321p/user/profile.php?id=3" class="dropdown-item menu-action" role="menuitem"data-title="profile,moodle" aria-labelledby="actionmenuaction-2"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/user" />
+<span class="menu-action-text" id="actionmenuaction-2">Profile</span></a><a href="http://localhost/moodle321p/grade/report/overview/index.php" class="dropdown-item menu-action" role="menuitem"data-title="grades,grades" aria-labelledby="actionmenuaction-3"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/grades" />
+<span class="menu-action-text" id="actionmenuaction-3">Grades</span></a><a href="http://localhost/moodle321p/message/index.php" class="dropdown-item menu-action" role="menuitem"data-title="messages,message" aria-labelledby="actionmenuaction-4"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/message" />
+<span class="menu-action-text" id="actionmenuaction-4">Messages</span></a><a href="http://localhost/moodle321p/user/preferences.php" class="dropdown-item menu-action" role="menuitem"data-title="preferences,moodle" aria-labelledby="actionmenuaction-5"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/preferences" />
+<span class="menu-action-text" id="actionmenuaction-5">Preferences</span></a><div class="dropdown-divider"></div><a href="http://localhost/moodle321p/login/logout.php?sesskey=xhZcGqPffd" class="dropdown-item menu-action" role="menuitem"data-title="logout,moodle" aria-labelledby="actionmenuaction-6"><img class="icon " class="iconsmall" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/a/logout" />
+<span class="menu-action-text" id="actionmenuaction-6">Log out</span></a>
+        </div>
+</span>
+
+
+        </div>
+
+</div></div>
+    
+            <!-- navbar_plugin_output -->
+            <div class="popover-region collapsed popover-region-messages"
+    id="nav-message-popover-container" data-userid="3"
+    data-region="popover-region">
+    <div class="popover-region-toggle nav-link"
+        data-region="popover-region-toggle"
+        aria-role="button"
+        aria-controls="popover-region-container-5a0b254e395735a0b254e37d5710"
+        aria-haspopup="true"
+        aria-label="Show message window with no new messages"
+        tabindex="0">
+                <img class="icon smallicon" alt=" Toggle messages menu " title=" Toggle messages menu " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/message" />
+        <div class="count-container hidden" data-region="count-container"></div>
+
+    </div>
+    <div 
+        id="popover-region-container-5a0b254e395735a0b254e37d5710"
+        class="popover-region-container"
+        data-region="popover-region-container"
+        aria-expanded="false"
+        aria-hidden="true"
+        aria-label="Notification window"
+        role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Messages</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <div class="newmessage-link">
+                <a href="http://localhost/moodle321p/message/index.php?contactsfirst=1">New message
+                </a>
+        </div>
+        <div class="hover-tooltip-container">
+                    <a class="mark-all-read-button"
+                    href="#"
+                    role="button"
+                    title="Mark all as read"
+                    data-action="mark-all-read">
+                    <span class="normal-icon"><img class="icon smallicon" alt=" Mark all as read " title=" Mark all as read " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/markasread" /></span>
+                    <span class="loading-icon"><img class="icon smallicon" alt=" Loading " title=" Loading " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/y/loading" /></span>
+                </a>
+
+    <div class="hover-tooltip">
+        Mark all as read
+    </div>
+</div>
+        <div class="hover-tooltip-container">
+                    <a href="http://localhost/moodle321p/message/edit.php?id=3"
+                    title="Message preferences">
+                    <img class="icon smallicon" alt=" Message preferences " title=" Message preferences " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/settings" />
+                </a>
+
+    <div class="hover-tooltip">
+        Message preferences
+    </div>
+</div>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="messages" data-region="messages" role="log" aria-busy="false" aria-atomic="false" aria-relevant="additions"></div>
+        <div class="empty-message" data-region="empty-message" tabindex="0">No messages</div>
+
+            </div>
+            <span class="loading-icon"><img class="icon smallicon" alt=" Loading " title=" Loading " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/y/loading" /></span>
+        </div>
+                <a class="see-all-link"
+                    href="http://localhost/moodle321p/message/index.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">See all</div>
+                    </div>
+                </a>
+    </div>
+</div><div class="popover-region collapsed popover-region-notifications"
+    id="nav-notification-popover-container" data-userid="3"
+    data-region="popover-region">
+    <div class="popover-region-toggle nav-link"
+        data-region="popover-region-toggle"
+        aria-role="button"
+        aria-controls="popover-region-container-5a0b254e3a3ef5a0b254e37d5711"
+        aria-haspopup="true"
+        aria-label="Show notification window with no new notifications"
+        tabindex="0">
+                <img class="icon smallicon" alt=" Toggle notifications menu " title=" Toggle notifications menu " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/notifications" />
+        <div class="count-container hidden" data-region="count-container"></div>
+
+    </div>
+    <div 
+        id="popover-region-container-5a0b254e3a3ef5a0b254e37d5711"
+        class="popover-region-container"
+        data-region="popover-region-container"
+        aria-expanded="false"
+        aria-hidden="true"
+        aria-label="Notification window"
+        role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Notifications</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <div class="hover-tooltip-container">
+                    <a class="mark-all-read-button"
+                    href="#"
+                    title="Mark all as read"
+                    data-action="mark-all-read"
+                    role="button">
+                    <span class="normal-icon"><img class="icon smallicon" alt=" Mark all as read " title=" Mark all as read " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/t/markasread" /></span>
+                    <span class="loading-icon"><img class="icon smallicon" alt=" Loading " title=" Loading " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/y/loading" /></span>
+                </a>
+
+    <div class="hover-tooltip">
+        Mark all as read
+    </div>
+</div>
+        <div class="hover-tooltip-container">
+                    <a href="http://localhost/moodle321p/message/notificationpreferences.php?userid=3"
+                    title="Notification preferences">
+                    <img class="icon smallicon" alt=" Notification preferences " title=" Notification preferences " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/settings" />
+                </a>
+
+    <div class="hover-tooltip">
+        Notification preferences
+    </div>
+</div>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="all-notifications"
+            data-region="all-notifications"
+            role="log"
+            aria-busy="false"
+            aria-atomic="false"
+            aria-relevant="additions"></div>
+        <div class="empty-message" tabindex="0" data-region="empty-message">You have no notifications</div>
+
+            </div>
+            <span class="loading-icon"><img class="icon smallicon" alt=" Loading " title=" Loading " src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/y/loading" /></span>
+        </div>
+                <a class="see-all-link"
+                    href="http://localhost/moodle321p/message/output/popup/notifications.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">See all</div>
+                    </div>
+                </a>
+    </div>
+</div>
+    
+            <!-- search_box -->
+            <span class="hidden-md-down">
+            
+            </span>
+    
+            <nav class="nav navbar-nav hidden-md-down">
+                <!-- custom_menu -->
+                
+                <!-- page_heading_menu -->
+                
+            </nav>
+        </div>
+    </header>
+    
+
+    <div id="page" class="container-fluid">
+        <header id="page-header" class="row"><div class="col-xs-12 p-a-1"><div class="card"><div class="card-block"><div class="pull-xs-right context-header-settings-menu"></div><div class="pull-xs-left"><div class="page-context-header"><div class="page-header-headings"><h1>Curso teste</h1></div></div></div><div class="clearfix w-100 pull-xs-left" id="page-navbar"><div class="breadcrumb-nav"><nav role="navigation">
+    <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="http://localhost/moodle321p/my/" >Dashboard</a></li>
+                <li class="breadcrumb-item">My courses</li>
+                <li class="breadcrumb-item"><a href="http://localhost/moodle321p/course/view.php?id=2" title="Curso teste">2017_teste</a></li>
+                <li class="breadcrumb-item"><a href="http://localhost/moodle321p/course/view.php?id=2#section-1" >Topic 1</a></li>
+                <li class="breadcrumb-item"><a href="http://localhost/moodle321p/mod/iassign/view.php?id=2" title="iAssign">Testes: iGeom, iFractions</a></li>
+    </ol>
+</nav></div><div class="breadcrumb-button pull-xs-right"></div></div><div id="course-header"></div></div></div></div></header>
+
+        <div id="page-content" class="row">
+            <div id="region-main-box" class="col-xs-12">
+                <section id="region-main" >
+                    <div class="card card-block">
+                    <span class="notifications" id="user-notifications"></span>
+                    <div role="main"><span id="maincontent"></span><table width=100%><tr><td ><a class="btn btn-link p-a-0" role="button"
+    data-container="body" data-toggle="popover"
+    data-placement="right" data-content="&lt;div class=&quot;no-overflow&quot;&gt;&lt;p&gt;&lt;b&gt;Correct:&lt;/b&gt; Activity assessed as correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Incorrect:&lt;/b&gt; Activity evaluated as incorrect.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Post:&lt;/b&gt; Activity recorded in the system. Wait for the teacher to correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;No post:&lt;/b&gt; Activity unposted.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;New comments:&lt;/b&gt; Indicates that activity has new comments&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Results:&lt;/b&gt; Presents the results of activity evaluation&lt;/p&gt;
+&lt;/div&gt; "
+    data-html="true" tabindex="0" data-trigger="focus">
+  <img class="icon smallicon" alt=" Help with Caption:" title=" Help with Caption:" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/help" />
+</a><strong>Caption:</strong>&nbsp;<img src="http://localhost/moodle321p/mod/iassign/icon/correct.gif" title="Correct" alt="Correct"/>&nbsp;Correct&nbsp;<img src="http://localhost/moodle321p/mod/iassign/icon/incorrect.gif" title="Incorrect" alt="Incorrect"/>&nbsp;Incorrect&nbsp;<img src="http://localhost/moodle321p/mod/iassign/icon/post.gif" title="Submitted" alt="Submitted"/>&nbsp;Submitted&nbsp;<img src="http://localhost/moodle321p/mod/iassign/icon/not_post.gif" title="Not submitted" alt="Not submitted"/>&nbsp;Not submitted&nbsp;<img src="http://localhost/moodle321p/mod/iassign/icon/comment_unread.gif" title="New comments" alt="New comments"/>&nbsp;New comments<td width=15% align="right"><a href='http://localhost/moodle321p/mod/iassign/view.php?id=2&action=stats_student&iassignid=1'><img src="http://localhost/moodle321p/mod/iassign/icon/results.gif" title="Results" alt="Results"/>&nbsp;Results</a></td>
+</tr></table>
+<div class="box generalbox p-y-1"><table  width=100% >
+<tr><td colspan=2><h4>iFractions 0.2.0: modelo 1, etapa 2</h4></td></tr>
+<tr>
+<td width=60%>Type of activity:<strong> exercise</strong></td>
+<td width=40% align="right"><a href='view.php?id=2&userid_iassign=3&action=view&iassign_current=2'><img src="http://localhost/moodle321p/mod/iassign/icon/previous_student_activity.gif" title="Previous Activity" alt="Previous Activity"/></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://localhost/moodle321p/mod/iassign/view.php?id=2'><img src="http://localhost/moodle321p/mod/iassign/icon/home.gif" title="Home" alt="Home"/>Activities Page</a>&nbsp;&nbsp;&nbsp;<a href='view.php?id=2&userid_iassign=3&action=view&iassign_current=4'><img src="http://localhost/moodle321p/mod/iassign/icon/next_student_activity.gif" title="Next Activity" alt="Next Activity"/></a></td>
+</tr></table>
+<table  width=100% >
+<tr><td width=50% align="left"> <strong>Available from:</strong>&nbsp;Tuesday, 7 November 2017, 7:20 PM</td>
+<td width=50% align="left"><strong>Delivery Date:</strong>&nbsp;Wednesday, 14 November 2018, 7:20 PM</td>
+</table>
+</div><div class="box generalbox p-y-1"><table width=100% border=0 valign="top">
+<tr><td width=60% valign="top">
+<strong>Proposition</strong>
+<p><p>Indicar os itens corretos.</p><p>iFractions 0.2.0: modelo 1, etapa 2<br></p></p>
+<strong>Independent activity</strong>
+</td>
+<td width=40% valign="top" align="left"><strong>Status:</strong>
+<img src="http://localhost/moodle321p/mod/iassign/icon/correct.gif" title="Correct" alt="Correct"/>&nbsp;Correct&nbsp;<p><strong>Grade student:</strong>&nbsp;0&nbsp;&nbsp;(Grade activity:&nbsp;0)</p>
+<p><strong>Number of attempts the student</strong>&nbsp;20&nbsp;&nbsp(Maximum number of attempts:&nbsp;Unlimited)</p>
+<p><strong>Last date of submission:</strong>&nbsp;Tuesday, 14 November 2017, 3:15 PM</p>
+</td></tr></table>
+<table width=100% border=0 valign="top">
+<td width=80% align="left"><strong> If you want to do this activity from the beginning again, use the \"Redo button\".</strong></td>
+<td width=20% align="rigth"><a href='view.php?action=repeat&id=2&userid_iassign=3&iassign_current=3&iassign_submission_current=3' title="Use this button to redo the activity" ><img src="http://localhost/moodle321p/mod/iassign/icon/repeat.gif" title="Redo activity" alt="Redo activity"/>&nbsp;Redo activity</a>
+</td></tr></table>
+</div><div class="box generalbox p-y-1">
+  <script type='text/javascript'>
+  //<![CDATA[
+  var strAnswer = '';
+  var evaluationResult = '';
+  var comment = '';
+
+  function jsAnalyseAnswer () {
+    // iVProgH5 will call function 'getEvaluationCallback(...)': /var/www/html/ivprogh5/js/services.js
+    // 'getEvaluation()' calls 'js/services.js : endTest function(index)' that calls 'getEvaluationCallback(apro/100);'
+    //alert('./mod/iassign/ilm_handlers/html5.php: jsAnalyseAnswer(): chama getEvaluation()');
+    alert('./mod/iassign/ilm_handlers/html5.php: window.frames.iLM = ' + window.frames.iLM);
+    resp = window.frames.iLM.getEvaluation();
+    if (resp == 'undefined'); // in './mod/iassign/ilm/ivprog-html/js/services.js'; './mod/iassign/ilm/ivprog-html/main.html'
+      return false;
+    //alert('jsAnalyseAnswer(): evaluationResult=' + evaluationResult);
+    // alert('jsAnalyseAnswer(): evaluationResult=' + evaluationResult + ', content=' + window.frames.iLM.getAnswer());
+    // var comment = document.formEnvio.submission_comment.value;
+    return true;
+    }
+
+  // ./mod/iassign/ilm/ivprog-html/js/services.js : call this to define the variable 'evaluationResult'
+  function getEvaluationCallback (evaluation) {
+    evaluationResult = evaluation;
+    strAnswer = window.frames.iLM.getAnswer();
+    // alert('getEvaluationCallback(...)' + evaluation + ', strAnswer=' + strAnswer);
+    comment = document.formEnvio.submission_comment.value;
+    //leo
+    if ((strAnswer==null || strAnswer=='' || strAnswer==-1) && (comment==null || comment=='')) { // undefined
+      alert('Activity sent without content.'); // 'Activity sent without content.'
+      return false; // error...
+      }
+    else {
+      //leo alert('getEvaluationCallback: enviando evaluationResult=' + evaluation + ', strAnswer=' + strAnswer);
+      document.formEnvio.iLM_PARAM_ArchiveContent.value = strAnswer;
+      document.formEnvio.iLM_PARAM_ActivityEvaluation.value = evaluationResult;
+      document.formEnvio.submit();
+      return true; // success
+      }
+     }
+  //]]>
+  </script>
+
+<center>
+<form name='formEnvio' id='formEnvio' method='post' action='http://localhost/moodle321p/mod/iassign/view.php?action=get_answer&iassign_submission_current=3&id=2&iassign_current=3&write_solution=1&userid_iassign=3&write_solution=1' enctype='multipart/form-data'>
+<iframe frameborder="0" name="iLM" src="ilm/ifractions_2/index.html?1=1&iLM_PARAM_AssignmentURL=true&iLM_PARAM_Assignment=http%3A%2F%2Flocalhost%2Fmoodle321p%2Fmod%2Fiassign%2Film_security.php%3Fid%3D25%26token%3D73a8506d1b3588b340b60c8352527dd1%26view%3D&iLM_PARAM_SendAnswer=false&iLM_PARAM_ServerToGetAnswerURL=http%3A%2F%2Flocalhost%2Fmoodle321p%2Fmod%2Fiassign%2Fview.php%3Faction%3Dget_answer%26iassign_submission_current%3D3%26id%3D2%26iassign_current%3D3%26write_solution%3D1%26userid_iassign%3D3%26write_solution%3D1&lang=en"  style="width: 1000px; height: 600px;"  id="iLM">
+</iframe>
+ <input type='hidden' name='iLM_PARAM_ArchiveContent' value=''>
+ <input type='hidden' name='iLM_PARAM_ActivityEvaluation' value=''>
+<p><textarea rows='2' cols='60' name='submission_comment'></textarea></p>
+<center>
+<!-- load button -->
+  <input type=button value='Submit assign' onClick = 'javascript:window.jsAnalyseAnswer();' title='Click here to send your response'>
+</center>
+</form></center>
+
+</form></center>
+</div></div>
+                    
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="nav-drawer" data-region="drawer" class="hidden-print moodle-has-zindex closed" aria-hidden="true" tabindex="-1">
+        <nav class="list-group">
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2" data-key="coursehome">
+                <div class="m-l-0">
+                        2017_teste
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/user/index.php?id=2" data-key="participants">
+                <div class="m-l-0">
+                        Participants
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/badges/view.php?type=2&amp;id=2" data-key="badgesview">
+                <div class="m-l-0">
+                        Badges
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/adminleo/tool/lp/coursecompetencies.php?courseid=2" data-key="2">
+                <div class="m-l-0">
+                        Competencies
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/grade/report/index.php?id=2" data-key="grades">
+                <div class="m-l-0">
+                        Grades
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2#section-0" data-key="1">
+                <div class="m-l-0">
+                        <div class="media">
+                            <span class="media-left">
+                                <img class="icon smallicon" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/folder" />
+                            </span>
+                            <span class="media-body">General</span>
+                        </div>
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action font-weight-bold" href="http://localhost/moodle321p/course/view.php?id=2#section-1" data-key="2">
+                <div class="m-l-0">
+                        <div class="media">
+                            <span class="media-left">
+                                <img class="icon smallicon" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/folder" />
+                            </span>
+                            <span class="media-body">Topic 1</span>
+                        </div>
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2#section-2" data-key="3">
+                <div class="m-l-0">
+                        <div class="media">
+                            <span class="media-left">
+                                <img class="icon smallicon" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/folder" />
+                            </span>
+                            <span class="media-body">Topic 2</span>
+                        </div>
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2#section-3" data-key="4">
+                <div class="m-l-0">
+                        <div class="media">
+                            <span class="media-left">
+                                <img class="icon smallicon" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/folder" />
+                            </span>
+                            <span class="media-body">Topic 3</span>
+                        </div>
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2#section-4" data-key="5">
+                <div class="m-l-0">
+                        <div class="media">
+                            <span class="media-left">
+                                <img class="icon smallicon" alt="" src="http://localhost/moodle321p/theme/image.php/boost/core/1510089380/i/folder" />
+                            </span>
+                            <span class="media-body">Topic 4</span>
+                        </div>
+                </div>
+            </a>
+        </nav>
+        <nav class="list-group m-t-1">
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/my/" data-key="myhome">
+                <div class="m-l-0">
+                        Dashboard
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/?redirect=0" data-key="home">
+                <div class="m-l-0">
+                        Site home
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/calendar/view.php?view=month" data-key="calendar">
+                <div class="m-l-0">
+                        Calendar
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/user/files.php" data-key="5">
+                <div class="m-l-0">
+                        Private files
+                </div>
+            </a>
+            <div class="list-group-item" data-key="mycourses">
+                <div class="m-l-0">
+                    My courses
+                </div>
+            </div>
+            <a class="list-group-item list-group-item-action " href="http://localhost/moodle321p/course/view.php?id=2" data-key="2">
+                <div class="m-l-1">
+                        2017_teste
+                </div>
+            </a>
+        </nav>
+    </div>
+</div>
+<footer id="page-footer" class="p-y-1 bg-inverse">
+    <div class="container">
+        <div id="course-footer"></div>
+
+
+        <div class="logininfo">You are logged in as <a href="http://localhost/moodle321p/user/profile.php?id=3" title="View profile">Aluno 1</a> (<a href="http://localhost/moodle321p/login/logout.php?sesskey=xhZcGqPffd">Log out</a>)</div>
+        <div class="homelink"><a href="http://localhost/moodle321p/course/view.php?id=2">2017_teste</a></div>
+        <nav class="nav navbar-nav hidden-lg-up">
+                <ul class="list-unstyled p-t-1">
+                </ul>
+        </nav>
+        
+        <script type="text/javascript">
+//<![CDATA[
+var require = {
+    baseUrl : 'http://localhost/moodle321p/lib/requirejs.php/1510089380/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'http://localhost/moodle321p/lib/javascript.php/1510089380/lib/jquery/jquery-3.1.0.min',
+        jqueryui: 'http://localhost/moodle321p/lib/javascript.php/1510089380/lib/jquery/ui-1.12.1/jquery-ui.min',
+        jqueryprivate: 'http://localhost/moodle321p/lib/javascript.php/1510089380/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script type="text/javascript" src="http://localhost/moodle321p/lib/javascript.php/1510089380/lib/requirejs/require.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+require(['core/first'], function() {
+;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp(function(videojs) {
+        videojs.options.flash.swf = "http://localhost/moodle321p/media/player/videojs/videojs/video-js.swf";
+videojs.addLanguage("en",{
+ "Play": "Play",
+ "Pause": "Pause",
+ "Current Time": "Current Time",
+ "Duration Time": "Duration Time",
+ "Remaining Time": "Remaining Time",
+ "Stream Type": "Stream Type",
+ "LIVE": "LIVE",
+ "Loaded": "Loaded",
+ "Progress": "Progress",
+ "Fullscreen": "Fullscreen",
+ "Non-Fullscreen": "Non-Fullscreen",
+ "Mute": "Mute",
+ "Unmute": "Unmute",
+ "Playback Rate": "Playback Rate",
+ "Subtitles": "Subtitles",
+ "subtitles off": "subtitles off",
+ "Captions": "Captions",
+ "captions off": "captions off",
+ "Chapters": "Chapters",
+ "Close Modal Dialog": "Close Modal Dialog",
+ "Descriptions": "Descriptions",
+ "descriptions off": "descriptions off",
+ "Audio Track": "Audio Track",
+ "You aborted the media playback": "You aborted the media playback",
+ "A network error caused the media download to fail part-way.": "A network error caused the media download to fail part-way.",
+ "The media could not be loaded, either because the server or network failed or because the format is not supported.": "The media could not be loaded, either because the server or network failed or because the format is not supported.",
+ "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.",
+ "No compatible source was found for this media.": "No compatible source was found for this media.",
+ "The media is encrypted and we do not have the keys to decrypt it.": "The media is encrypted and we do not have the keys to decrypt it.",
+ "Play Video": "Play Video",
+ "Close": "Close",
+ "Modal Window": "Modal Window",
+ "This is a modal window": "This is a modal window",
+ "This modal can be closed by pressing the Escape key or activating the close button.": "This modal can be closed by pressing the Escape key or activating the close button.",
+ ", opens captions settings dialog": ", opens captions settings dialog",
+ ", opens subtitles settings dialog": ", opens subtitles settings dialog",
+ ", opens descriptions settings dialog": ", opens descriptions settings dialog",
+ ", selected": ", selected"
+});
+
+    });
+});;
+
+require(['jquery', 'message_popup/message_popover_controller'], function($, controller) {
+    var container = $('#nav-message-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+require(['jquery', 'message_popup/notification_popover_controller'], function($, controller) {
+    var container = $('#nav-notification-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+require(['theme_boost/loader']);
+require(['theme_boost/drawer'], function(mod) {
+    mod.init();
+});
+;
+require(["core/notification"], function(amd) { amd.init(24, []); });;
+require(["core/log"], function(amd) { amd.setConfig({"level":"warn"}); });
+});
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","yes":"Yes","no":"No","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","confirm":"Confirm","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"admin":{"confirmdeletecomments":"You are about to delete comments, are you sure?","confirmation":"Confirmation"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {setTimeout("fix_column_widths()", 20);
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"en"});
+});
+M.util.help_popups.setup(Y);
+Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+});
+ M.util.js_pending('random5a0b254e37d5712'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5a0b254e37d5712'); });
+})();
+//]]>
+</script>
+
+    </div>
+</footer>
+
+</body>
+</html>

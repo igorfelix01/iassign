@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="ivprog">
+  <head>
+    <title>iVProg - versão HTML</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/font-awesome.css" rel="stylesheet" media="screen" />
+    <link href="css/bootstrap-editable.css" rel="stylesheet" media="screen" />
+    <link href="css/ivprog.css" rel="stylesheet" media="screen" />
+  </head>
+  <body>
+    <!--div class="header">
+        <h1><img src="img/logo.png" title="iVProg" /></h1>
+    </div-->
+    <div ng-view></div>
+
+    <span ng-controller="CommCtrl" id="commCtrl"></span>
+
+    <script src="js/jquery.1.8.3.js"></script>
+    <script src="js/jsdeferred.jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app-i18n.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <script src="js/jquery.ui.js"></script>
+    <script src="js/angular.ui.min.js"></script>
+
+    <script>
+      function getParameterByName (name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match ? decodeURIComponent(match[1].replace(/\+/g, ' ')) : null;
+        }
+      function getAnswer () {
+        return angular.element("#commCtrl").scope().getSource()
+        }
+      function getEvaluation () { // run(true)
+        //D alert('ivprog/main.html')
+        return angular.element("#commCtrl").scope().getEvaluation();
+        //return "getEvaluation will return some value in future";
+        }
+      function getEvaluationCallback (nota) {
+        parent.getEvaluationCallback (nota);
+        }
+      var iLMparameters = {
+        iLM_PARAM_ServerToGetAnswerURL : getParameterByName("iLM_PARAM_ServerToGetAnswerURL"),
+        iLM_PARAM_SendAnswer :           getParameterByName("iLM_PARAM_SendAnswer"),
+        iLM_PARAM_AssignmentURL :        getParameterByName("iLM_PARAM_AssignmentURL"),
+        iLM_PARAM_Assignment :           getParameterByName("iLM_PARAM_Assignment"),
+        lang :                           getParameterByName("lang"),
+        };
+      function trackAction (action) {
+        $.post(iLMparameters.iLM_PARAM_ServerToGetAnswerURL+"&track=1", { trackingData: "html=1;"+action }, function(d){});
+        }
+    </script>
+  </body>
+</html>
