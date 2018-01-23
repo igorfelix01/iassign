@@ -116,6 +116,7 @@ if ($id>0) { // if reach here by iLM get request, id is not defined!
   }
 
 $url = $CFG->wwwroot . "/mod/iassign/ilm_manager.php?from=$from&id=$id&ilmid=$ilmid";
+
 // http://localhost/moodle321p/mod/iassign/ilm_manager.php?id=2&from=iassign&ilmid=7#
 // -> http://localhost/moodle321p/mod/iassign/ilm_manager.php?from=iassign&id=2&action=preview&fileid=53
 //xx $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST); //QUARANTINE it is not necessary to present the course in the header...

@@ -4645,6 +4645,8 @@ class ilm_manager {
         $filename = $filename . '.' . $extension;
         }
 
+      $_SESSION['file_name'] = $filename;
+
       //$this->write_file_iassign($string, $filename);
       $this->write_file_iassign($stringArchiveContent, $filename);
 
@@ -5728,6 +5730,30 @@ alert('locallib.php: ilm_editor_update: submit_iLM_Answer(): ' + activityAnswer)
        window.location='" . $CFG->wwwroot . "/mod/iassign/ilm_manager.php?from=" . $this->from . "&id=" . $this->id . "&action=recover&ilmid=" . $ilmid . "&dirid=" . $dirid . "';
        }
     }
+
+    window.onload = function() {
+      
+      var xPosition = 0;
+      var yPosition = 0;
+
+      element=document.getElementById('new_file');
+
+      while(element) {
+          xPosition += (element.offsetLeft - element.scrollLeft + element.clientLeft);
+          yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
+          element = element.offsetParent;
+      }
+
+      console.log(xPosition, yPosition);
+
+      document.getElementById('new_file').style.top = '' + (yPosition - 400) + 'px';
+      document.getElementById('new_file').style.right = '' + 0 + 'px';
+
+      console.log(yPosition - 400);
+
+      location.hash = '#new_file';
+    };
+
    //]]>
 </script>\n";
 
@@ -5825,7 +5851,13 @@ alert('locallib.php: ilm_editor_update: submit_iLM_Answer(): ' + activityAnswer)
    <td><center>$timecreated</center></td>
    <td><center>$timemodified</center></td></tr>\n";
         } else if ($this->from == 'iassign') {
-            $output .= "<tr><td>$check_select$link_rename$link_delete$link_duplicate$link_edit$link_filter$link_add_ilm_iassign</td>
+
+          $new_id = "";
+          $new_class = "";
+          if ($filename == $_SESSION['file_name']) { $new_class = "<div id='new_file' style='position: absolute;'></div>"; unset($_SESSION['file_name']);
+          $new_id = "id='id_new_blink' style='background-color: hsl(244,61%,90%);'"; }
+
+            $output .= "<tr $new_id><td>$new_class $check_select$link_rename$link_delete$link_duplicate$link_edit$link_filter$link_add_ilm_iassign</td>
    <td><a href='$fileurl' title='" . get_string('download_file', 'iassign') . "$filename'>$filename</a></td>
    <td><center>$author</center></td>
    <td><center>$timecreated</center></td>
