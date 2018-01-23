@@ -3098,7 +3098,7 @@ class activity {
           } // if ($iassign_submission_currents)
         }
 
-      $delete_iassign_statement_config = $DB->delete_records('iassign_statement_config', array('iassign_statementid' => $this->activity->id)); //MOOC 2016
+      //$delete_iassign_statement_config = $DB->delete_records('iassign_statement_config', array('iassign_statementid' => $this->activity->id)); //MOOC 2016
 
       $this->delete_calendar($this->activity->id);
       $delete_iassign_current = $DB->delete_records('iassign_statement', array('id' => $this->activity->id));
