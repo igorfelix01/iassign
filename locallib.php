@@ -3313,12 +3313,6 @@ class activity {
     $fileold = $fs->get_file_by_id($param->fileold);
 
     if ($param->file != $param->fileold) {
-      if (!$fs->file_exists($param->context->id, $component, $filearea, $file->get_itemid(), $file->get_filepath(), $file->get_filename())) {
-        $itemid = $file->get_itemid() + $param->iassign_id;
-        $newfile = $fs->create_file_from_storedfile(array('contextid' => $param->context->id, 'component' => $component, 'filearea' => $filearea, 'itemid' => $itemid), $file);
-        $param->file = $newfile->get_itemid();
-      } else
-        $param->file = $file->get_itemid();
 
       if ($fileold) {
         $fileoldarea = $fs->get_area_files($fileold->get_contextid(), $fileold->get_component(), $fileold->get_filearea(), $fileold->get_itemid());
@@ -3326,9 +3320,17 @@ class activity {
           $value->delete();
           }
         }
+
+      if (!$fs->file_exists($param->context->id, $component, $filearea, $file->get_itemid(), $file->get_filepath(), $file->get_filename())) {
+        $itemid = $file->get_itemid() + $param->iassign_id;
+        $newfile = $fs->create_file_from_storedfile(array('contextid' => $param->context->id, 'component' => $component, 'filearea' => $filearea, 'itemid' => $itemid), $file);
+        $param->file = $newfile->get_itemid();
+      } else
+        $param->file = $file->get_itemid();
+
     } else {
       $param->file = $file->get_itemid();
-      }
+    }
 
     $newentry = new stdClass();
     $newentry->id = $param->iassign_id;
