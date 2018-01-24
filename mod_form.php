@@ -131,9 +131,11 @@ class mod_iassign_mod_form extends moodleform_mod {
                 $mform->addElement('header', 'header_general_fields_apply', get_string('general_fields_apply', 'iassign'));
                 $mform->addHelpButton('header_general_fields_apply', 'general_fields_apply', 'iassign');
 
+                $this->add_checkbox_controller('atividades');
+
                 foreach ($iassign_statement as $iassign) {
                     $tmp = 'iassign_statement[' . $iassign->id . ']';
-                    $mform->addElement('advcheckbox', $tmp, $iassign->name);
+                    $mform->addElement('advcheckbox', $tmp, $iassign->name, null, array('group' => 'atividades'));
                 }
             }
         }
