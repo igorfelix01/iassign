@@ -23,6 +23,17 @@
 
 require_once ("$CFG->dirroot/mod/iassign/locallib.php");
 
+function iassign_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $iassignnode) {
+    global $USER, $PAGE, $CFG, $DB, $OUTPUT;
+
+    if (optional_param('iassign_current', 0, PARAM_INT)) {
+      $childnode = $iassignnode->create(get_string('edit_iassign', 'iassign'), new moodle_url('/mod/iassign/view.php', array('action' => 'edit', 'id' => optional_param('id', 0, PARAM_INT), 'iassign_current' => optional_param('iassign_current', 0, PARAM_INT) )), navigation_node::TYPE_SETTING);
+
+      $iassignnode->add_node($childnode, $iassignnode->get_children_key_list()[0]);
+    }
+
+  }
+
 
 /// List of features supported in iAssign module
 //  @param string $feature FEATURE_xx constant for requested feature
