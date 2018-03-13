@@ -34,42 +34,37 @@ function xmldb_iassign_install() {
   $records = array(
     // iGeom 5.9.22
     array_combine(
-            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGeom', 'http://www.matematica.br/igeom', '5.9.22', 'Java', '{"en":"Interactive Geometry on the Internet","pt_br":"Geometria Interativa na Internet"}', 'geo', 'iGeom.jar', 'IGeomApplet.class', 800, 600, 1, time(), $USER->id, time(), 1)),
+            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGeom', 'http://www.matematica.br/igeom', '5.9.22', 'Java', '{"en":"Interactive Geometry on the Internet","pt_br":"Geometria Interativa na Internet"}', 'geo', 'ilm/iGeom/5.9.22/iGeom.jar', 'IGeomApplet.class', 800, 600, 1, time(), $USER->id, time(), 1)),
     // iGraf 4.4.0.10
     array_combine(
-            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGraf', 'http://www.matematica.br/igraf', '4.4.0.10', 'Java', '{"en":"Interactive Graphic on the Internet","pt_br":"Gráficos Interativos na Internet"}', 'grf', 'iGraf.jar', 'igraf.IGraf.class', 840, 600, 1, time(), $USER->id, time(), 1)),
+            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGraf', 'http://www.matematica.br/igraf', '4.4.0.10', 'Java', '{"en":"Interactive Graphic on the Internet","pt_br":"Gráficos Interativos na Internet"}', 'grf', 'ilm/iGraf/4.4.0.10/iGraf.jar', 'igraf.IGraf.class', 840, 600, 1, time(), $USER->id, time(), 1)),
     // iComb 0.9.5
     array_combine(
-            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iComb', 'http://www.matematica.br/icomb', '0.9.5', 'Java', '{"en":"Combinatorics Interactive on the Internet","pt_br":"Combinatória Interativa na Internet"}', 'icb,cmb', 'iComb.jar', 'icomb.IComb.class', 750, 685, 1, time(), $USER->id, time(), 1)),
+            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iComb', 'http://www.matematica.br/icomb', '0.9.5', 'Java', '{"en":"Combinatorics Interactive on the Internet","pt_br":"Combinatória Interativa na Internet"}', 'icb,cmb', 'ilm/iComb/0.9.5/iComb.jar', 'icomb.IComb.class', 750, 685, 1, time(), $USER->id, time(), 1)),
     // iVProg2 2.1.0
     array_combine(
-            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iVProg2', 'http://www.matematica.br/ivprog2', '2.1.0', 'Java', '{"en":"Visual Interactive Programming on the Internet","pt_br":"Programação visual interativa na Internet"}', 'ivp2', 'iVProg2.jar', 'usp.ime.line.ivprog.Ilm.class', 800, 700, 1, time(), $USER->id, time(), 1)),
+            array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iVProg2', 'http://www.matematica.br/ivprog2', '2.1.0', 'Java', '{"en":"Visual Interactive Programming on the Internet","pt_br":"Programação visual interativa na Internet"}', 'ivp2', 'ilm/iVProg2/2.1.0/iVProg2.jar', 'usp.ime.line.ivprog.Ilm.class', 800, 700, 1, time(), $USER->id, time(), 1)),
     // iTangram2 0.4.6
     array_combine(
             array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
-            array('iTangram2', 'http://www.matematica.br/itangram', '0.4.6', 'Java', '{"en":"The Objective of the game is to reproduce the form of the model using all 7 pieces of iTangram","pt_br":"O Objetivo do jogo é reproduzir a forma do modelo usando todas as 7 peças do iTangram"}', 'itg2', 'iTangram2.jar', 'ilm.line.itangram2.Tangram', 800, 600, 1, time(), $USER->id, time(), 1)),
+            array('iTangram2', 'http://www.matematica.br/itangram', '0.4.6', 'Java', '{"en":"The Objective of the game is to reproduce the form of the model using all 7 pieces of iTangram","pt_br":"O Objetivo do jogo é reproduzir a forma do modelo usando todas as 7 peças do iTangram"}', 'itg2', 'ilm/iTangram2/0.4.6/iTangram2.jar', 'ilm.line.itangram2.Tangram', 800, 600, 1, time(), $USER->id, time(), 1)),
     // iHanoi 3.1.0
     array_combine(
             array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
-            array('iHanoi', 'http://www.matematica.br/ihanoi', '3.1.0', 'Java', '{"en":"The Objective to move N discs from stick A to C, following some rule (from the game Towers of Hanoi)","pt_br":"O objetivo é mover N discos da haste A para C, seguindo algumas regras (implementa o jogo Torres de Hanói)"}', 'ihn', 'iHanoi.jar', 'ihanoi.iHanoi', 730, 450, 1, time(), $USER->id, time(), 1)),
+            array('iHanoi', 'http://www.matematica.br/ihanoi', '3.1.0', 'Java', '{"en":"The Objective to move N discs from stick A to C, following some rule (from the game Towers of Hanoi)","pt_br":"O objetivo é mover N discos da haste A para C, seguindo algumas regras (implementa o jogo Torres de Hanói)"}', 'ihn', 'ilm/iHanoi/3.1.0/iHanoi.jar', 'ihanoi.iHanoi', 730, 450, 1, time(), $USER->id, time(), 1)),
     // Risco 2
     array_combine(
             array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
-            array('Risko', 'http://risko.pcc.usp.br/', '2.2.23', 'Java', '{"en":"Interactive computational tool for teaching geometry","pt_br":"Ferramenta computacional interativa para o ensino de geometria"}', 'rsk', 'Risko.jar', 'RiskoApplet.class', 800, 600, 1, time(), $USER->id, time(), 0)),
+            array('Risko', 'http://risko.pcc.usp.br/', '2.2.23', 'Java', '{"en":"Interactive computational tool for teaching geometry","pt_br":"Ferramenta computacional interativa para o ensino de geometria"}', 'rsk', 'ilm/Risko/2.2.23/Risko.jar', 'RiskoApplet.class', 800, 600, 1, time(), $USER->id, time(), 0)),
     // iVProgH5 0.1 - HTML5
     array_combine(
              array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), 
-             array('iVProgH5', 'http://www.matematica.br/ivprogh5', '0.1.0', 'HTML5', '{"en":"Visual Interactive Programming on the Internet HTML5","pt_br":"Programação visual interativa na Internet"}', 'ivph', 'ilm/ivprog-html/', 'main.html', 800, 600, 1, time(), $USER->id, time(), 1)),
+             array('iVProgH5', 'http://www.matematica.br/ivprogh5', '0.1.0', 'HTML5', '{"en":"Visual Interactive Programming on the Internet HTML5","pt_br":"Programação visual interativa na Internet"}', 'ivph', 'ilm/iVProgH5/0.1.0/ivprog-html/', 'main.html', 800, 600, 1, time(), $USER->id, time(), 1)),
     // fractions 0.1.2017.11.22 - HTML5
     array_combine(
              array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), 
-             array('iFractions', 'http://www.matematica.br/ifractions', '0.1.2017.11.22', 'HTML5', '{"en":"Visual Interactive Fractions Learning","pt_br":"Aprendizagem visual interativa de frações"}', 'frc', 'ilm/ifractions/', 'index.html', 1000, 600, 1, time(), $USER->id, time(), 1))
+             array('iFractions', 'http://www.matematica.br/ifractions', '0.1.2017.11.22', 'HTML5', '{"en":"Visual Interactive Fractions Learning","pt_br":"Aprendizagem visual interativa de frações"}', 'frc', 'ilm/iFractions/0.1.2017.11.22/ifractions/', 'index.html', 1000, 600, 1, time(), $USER->id, time(), 1))
       );
-
-  $fs = get_file_storage();
-  $is_delete = true;
-  $context = context_system::instance();
-  $ilm_path = $CFG->dirroot . "/mod/iassign/ilm/";
 
   foreach ($records as $record) {
 
@@ -84,42 +79,6 @@ function xmldb_iassign_install() {
         $ilm_exists = true;
       }
 
-    if (strtolower($record['type']) != 'html5') {
-      $filenames = explode(",", $record['file_jar']); // get the JAR filename as "*.jar" or just first name if it is HTML5
-      $file_jar = array(); // If there are several '*.jar' for this iLM
-      // If the iLM is a set of JAR files (this was the case for iComb 0.9) get all '*.jar' files separated by ','
-      foreach ($filenames as $filename) {
-        if (!$ilm_exists) {
-
-          $name_ilm = $record['name'];
-          $version_ilm = $record['version'];
-
-          $file_ilm = array(
-             'userid' => $USER->id, // ID of context
-             'contextid' => $context->id, // ID of context
-             'component' => 'mod_iassign', // usually = table name
-             'filearea' => 'ilm', // usually = table name (e.g, in table '*_files' all iAssign exercises will have 'filearea="exercise"')
-             'itemid' => 0,
-             'filepath' => '/iassign/ilm/' . iassign_utils::format_pathname($name_ilm) . '/' . iassign_utils::format_pathname($version_ilm) . '/', // any path beginning and ending in /
-             'filename' => $filename); // any filename
-          //TODO iLM_HTML5 : What model to implement to HTML5?
-          //TODO 1. The first version of iLM HTML5 in '/var/www/html/moodle/mod/iassign/ilm/ilm-nome' and others in '/var/moodledata/filedir/'?
-          //TODO 2. Inserting new iLM HTML5 by ZIP file => explode it and register in '/var/moodledata/filedir/'?
-          // Create file using the content: the file information is inserted in the Moodle table '*_files'
-          // The real file will be registered in Moodle data (default '/var/moodledata/filedir/xx/yy' - 'xxyy' is the first 4 char in '*_files.contenthash')
-          //TODO Keep this even change the model to not insert iLM HTML5 (need this object to connect with '*_iassign_ilm' bellow)
-          $file_ilm = $fs->create_file_from_string($file_ilm, file_get_contents($ilm_path . $filename));
-
-          if ($file_ilm)
-            $is_delete &= @unlink($ilm_path . $filename);
-          array_push($file_jar, $file_ilm->get_id()); // register the '*_files.id' for all JAR package from this iLM
-          }
-        else
-          $is_delete &= @unlink($ilm_path . $filename);
-        } // foreach ($filenames as $filename)
-      
-      $record['file_jar'] = implode(",", $file_jar);
-    }
     if (!empty($file_jar)) {
       $DB->insert_record('iassign_ilm', $record, false); // insert new iLM in the table '*_iassign_ilm'
     }
@@ -153,11 +112,6 @@ function xmldb_iassign_install() {
     set_config('toolbar', $toolbar, 'editor_atto');
     } // if (strpos($toolbar, 'iassign') === false && $toolbar && $toolbar != '')
   // end Add
-
-  $is_delete &= @unlink($ilm_path . "index.*");
-
-  if ($is_delete && is_dir($ilm_path))
-    @rmdir($ilm_path);
 
   // log event -----------------------------------------------------
   if (class_exists('plugin_manager'))
