@@ -337,7 +337,7 @@ class html5 implements ilm_handle {
 
         $date_jar = $iassign_ilm->file_jar;
 
-        $str .= '<tr><td><strong>' . get_string('file_jar', 'iassign') . '</strong>&nbsp;' . $date_jar . '</td>' . "\n";
+        $str .= '<tr><td><strong>' . get_string('file_jar', 'iassign') . ':</strong>&nbsp;' . $date_jar . '</td>' . "\n";
         $str .= '<td ><strong>' . get_string('file_class', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->file_class . '</td></tr>' . "\n";
         if ($iassign_ilm->evaluate == 1) {
             $evaluate = get_string('yes', 'iassign');
@@ -551,12 +551,29 @@ class html5 implements ilm_handle {
 
     $iassign_ilm = $DB->get_record('iassign_ilm', array('id' => $ilm_id));
 
+    // Prepare the path of directory to be removed
+    $path_w = rtrim($iassign_ilm->file_jar, "/");
+    $folder_to_remove = substr($path_w, 0, strrpos($path_w, '/') + 1);
+
     // Check if the iLM directory is writable
     if (!is_writable($iassign_ilm->file_jar)) {
       return null;
-      }
+    }
 
-    self::delete_dir($iassign_ilm->file_jar);
+    self::delete_dir($folder_to_remove);
+
+    $ilm_folder = "ilm/" . $iassign_ilm->name . "/";
+    $k = 0;
+
+    // Verify if iLM parent directory is empty, if yes, remove it
+    foreach(glob($ilm_folder . "*", GLOB_ONLYDIR) as $dir) {
+      $k ++;
+      break;
+    }
+
+    if ($k == 0) {
+      self::delete_dir($ilm_folder);
+    }
 
     $DB->delete_records("iassign_ilm", array('id' => $ilm_id));
     $DB->delete_records("iassign_ilm_config", array('iassign_ilmid' => $ilm_id)); //MOOC 2016
@@ -864,22 +881,28 @@ class html5 implements ilm_handle {
       return null;
       }
 
+    // Check if iLM directory already exists
+    if (!file_exists("ilm/" . $application_xml->name)) {
+      mkdir("ilm/" . $application_xml->name, 0777, true);
+    }
+
+    // Check if iLM version already exists in directory
+    if (!file_exists("ilm/" . $application_xml->name . "/" . $application_xml->version)) {
+      mkdir("ilm/" . $application_xml->name . "/" . $application_xml->version, 0777, true);
+    } else {
+      print($OUTPUT->notification(get_string('error_import_ilm_version', 'iassign'), 'notifyproblem'));
+      return null;
+    }
+
+    $root_ilm = "ilm/" . $application_xml->name . "/" . $application_xml->version;
+    // Extract iLM files to directory
     foreach ($files_extract as $key => $value) {
       $file = $CFG->dataroot . '/temp/' . $key;
-      // Check if the directory already exists in iLM directory
+
       if (is_dir($file)) {
         $source = $file;
-        if (file_exists("ilm/" . basename($file))) {
-          $j = 1;
-          while (file_exists('ilm/' . basename($file) . "_" . $j)) {
-            $j ++;
-            }
-          $diretorio = 'ilm/' . basename($file) . "_" . $j;
-          mkdir($diretorio, 0777, true);
-        } else {
-          $diretorio = 'ilm/' . basename($file);
-          mkdir($diretorio, 0777, true);
-        }
+        $diretorio = $root_ilm . "/" . basename($file);
+        mkdir($diretorio, 0777, true);
         break;
         }
       } // foreach ($files_extract as $key => $value)

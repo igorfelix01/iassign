@@ -55,7 +55,7 @@ class java implements ilm_handle {
       // Attention: in iAssign 2014 on, all the iLM is located on the Moodle filesystem (usually /var/moodledata/filedir/).
       // This means that '$iassign_ilm->file_jar' = '*_files.id'
 
-      $file_url = array();
+      /*$file_url = array();
       $fs = get_file_storage();
       $files_jar = explode(",", $iassign_ilm->file_jar);
 
@@ -70,7 +70,7 @@ class java implements ilm_handle {
           $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename());
           array_push($file_url, $url);
           }
-        }
+        }*/
 
       $lang = substr(current_language(), 0, 2);
 
@@ -82,10 +82,12 @@ class java implements ilm_handle {
         $iassign_ilm_height = $iassign_ilm->height; // or use? $iassign_ilm->height
         }
 
+      $file_url = explode(",", $iassign_ilm->file_jar);
+
       if (!empty($file_url)) { // There is an iLM file
         // Build tag to JAR file
         $html .= ' <!-- iAssign - view iLM content / LInE - http://line.ime.usp.br -->' . "\n";
-        $html .= ' <applet name="iLM" archive="' . implode(",", $file_url) . '" code="' . $iassign_ilm->file_class . '" width="' . $iassign_ilm_width . '" height="' . $iassign_ilm_height . '" vspace=10 hspace=10>' . "\n";
+        $html .= ' <applet name="iLM" archive="' . new moodle_url("/mod/iassign/". implode(",", $file_url)) . '" code="' . $iassign_ilm->file_class . '" width="' . $iassign_ilm_width . '" height="' . $iassign_ilm_height . '" vspace=10 hspace=10>' . "\n";
         $html .= '  <param name="lang" value="' . $lang . '"/>' . "\n";
 
         switch ($options['type']) {
@@ -349,10 +351,7 @@ class java implements ilm_handle {
         $str .= '<tr><td width="50%"><strong>' . get_string('type_ilm', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->type . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>' . get_string('extension', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->extension . '</td>' . "\n";
         $str .= '<td width="50%"><strong>' . get_string('width', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->width;
         $str .= '&nbsp;&nbsp;<strong>' . get_string('height', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->height . '</td></tr>' . "\n";
-
-        $date_jar = ilm_settings::applet_filetime($iassign_ilm->file_jar);
-
-        $str .= '<tr><td><strong>' . get_string('file_jar', 'iassign') . '</strong>&nbsp;' . $date_jar . '</td>' . "\n";
+        $str .= '<tr><td><strong>' . get_string('file_jar', 'iassign') . ':</strong>&nbsp;' . basename($iassign_ilm->file_jar) . '</td>' . "\n";
         $str .= '<td ><strong>' . get_string('file_class', 'iassign') . ':</strong>&nbsp;' . $iassign_ilm->file_class . '</td></tr>' . "\n";
         if ($iassign_ilm->evaluate == 1) {
           $evaluate = get_string('yes', 'iassign');
@@ -476,19 +475,27 @@ class java implements ilm_handle {
 
     $iassign_ilm_configs = $DB->get_records('iassign_ilm_config', array('iassign_ilmid' => $ilm_id)); //MOOC 2016
 
+    $files_jar = str_replace(basename($iassign_ilm->file_jar), "", $iassign_ilm->file_jar);
+
     $zip_filename = $CFG->dataroot . '/temp/ilm-' . iassign_utils::format_pathname($iassign_ilm->name . '-v' . $iassign_ilm->version) . '_' . date("Ymd-Hi") . '.ipz';
     $zip = new zip_archive();
     $zip->open($zip_filename);
-    $fs = get_file_storage();
-    $files_id = explode(',', $iassign_ilm->file_jar);
-    $files_jar = "";
-    foreach ($files_id as $file_id) {
-      $file = $fs->get_file_by_id($file_id);
-      if (!$file->is_directory()) {
-        $zip->add_file_from_string($file->get_filename(), $file->get_content());
-        $files_jar .= $file->get_filename();
-        }
+
+    $rootdir = $CFG->dirroot . '/mod/iassign/' . $files_jar;
+
+    $allfiles = self::list_directory($rootdir);
+    $i = 0;
+
+    $base_jar = "";
+
+    foreach ($allfiles as $file) {
+      $mini = basename(str_replace($CFG->dirroot . '/mod/iassign/ilm/', "", $file));
+
+      if (!is_dir($file)) {
+        $zip->add_file_from_pathname($mini, $file);
+        $base_jar = $mini;
       }
+    }
 
     $application_descriptor = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
     $application_descriptor .= '<application xmlns="http://line.ime.usp.br/application/1.5">' . "\n";
@@ -498,7 +505,7 @@ class java implements ilm_handle {
     $application_descriptor .= '  <type>' . $iassign_ilm->type . '</type>' . "\n";
     $application_descriptor .= '  <description>' . html_entity_decode(str_replace(array('<p>', '</p>'), array('', ''), $iassign_ilm->description)) . '</description>' . "\n";
     $application_descriptor .= '  <extension>' . $iassign_ilm->extension . '</extension>' . "\n";
-    $application_descriptor .= '  <file_jar>' . $files_jar . '</file_jar>' . "\n";
+    $application_descriptor .= '  <file_jar>' . $base_jar . '</file_jar>' . "\n";
     $application_descriptor .= '  <file_class>' . $iassign_ilm->file_class . '</file_class>' . "\n";
     $application_descriptor .= '  <width>' . $iassign_ilm->width . '</width>' . "\n";
     $application_descriptor .= '  <height>' . $iassign_ilm->height . '</height>' . "\n";
@@ -537,6 +544,43 @@ class java implements ilm_handle {
     }
 
   public static function delete_ilm($ilm_id) {
+    global $DB, $CFG, $OUTPUT;
+
+    $iassign_ilm = $DB->get_record('iassign_ilm', array('id' => $ilm_id));
+
+    // Prepare the path of directory to be removed
+    $path_w = rtrim($iassign_ilm->file_jar, "/");
+    $folder_to_remove = substr($path_w, 0, strrpos($path_w, '/') + 1);
+
+    // Check if the iLM directory is writable
+    if (!is_writable($iassign_ilm->file_jar)) {
+      return null;
+    }
+
+    self::delete_dir($folder_to_remove);
+
+    $ilm_folder = "ilm/" . $iassign_ilm->name . "/";
+    $k = 0;
+
+    // Verify if iLM parent directory is empty, if yes, remove it
+    foreach(glob($ilm_folder . "*", GLOB_ONLYDIR) as $dir) {
+      $k ++;
+      break;
+    }
+
+    if ($k == 0) {
+      self::delete_dir($ilm_folder);
+    }
+
+    $DB->delete_records("iassign_ilm", array('id' => $ilm_id));
+    $DB->delete_records("iassign_ilm_config", array('iassign_ilmid' => $ilm_id)); //MOOC 2016
+    // log event --------------------------------------------------------------------------------------
+    iassign_log::add_log('delete_iassign_ilm', 'name: ' . $iassign_ilm->name . ' ' . $iassign_ilm->version, 0, $iassign_ilm->id);
+    // log event --------------------------------------------------------------------------------------
+
+    return $iassign_ilm->parent;
+  }
+  /*public static function delete_ilm($ilm_id) {
     global $DB, $CFG;
 
     $fs = get_file_storage();
@@ -557,7 +601,7 @@ class java implements ilm_handle {
     // log event --------------------------------------------------------------------------------------
 
     return $iassign_ilm->parent;
-    }
+    }*/
 
 
   /// Register data from an iLM after to updated it
@@ -652,7 +696,7 @@ class java implements ilm_handle {
         $newentry->description = strip_tags($description_str);
         $newentry->extension = strtolower((String) $application_xml->extension);
 
-        $newentry->file_jar = implode(",", $file_jar);
+        $newentry->file_jar = $file_jar;
 
         $newentry->file_class = (String) $application_xml->file_class;
         $newentry->width = (String) $application_xml->width;
@@ -669,7 +713,7 @@ class java implements ilm_handle {
         $newentry->id = $DB->insert_record("iassign_ilm", $newentry);
 
         // log event --------------------------------------------------------------------------------------
-        iassign_log::add_log('add_iassign_ilm', 'name: ' . $param->name . ' ' . $param->version, 0, $newentry->id);
+        iassign_log::add_log('add_iassign_ilm', 'name: ' . $application_xml->name . ' ' . $application_xml->version, 0, $newentry->id);
         // log event --------------------------------------------------------------------------------------
         if ($application_xml->params->param) {
           foreach ($application_xml->params->param as $value) {
@@ -692,6 +736,7 @@ class java implements ilm_handle {
       }
 
     $fs->delete_area_files($contextuser->id, 'user', 'draft', $itemid);
+    return true;
     }
 
   /**
@@ -776,34 +821,85 @@ class java implements ilm_handle {
   //  @param array $files_extract Filenames of extract files
   //  @return array Return an array content id of JAR files
   static function save_ilm_by_xml($application_xml, $files_extract) {
-    global $CFG, $USER;
 
-    $fs = get_file_storage();
-    $file_jar = array();
-    $files_ilm = explode(",", $application_xml->file_jar);
-    $contextsystem = context_system::instance();
+    global $CFG, $USER, $OUTPUT;
 
-    foreach ($files_ilm as $value) {
-      $file_ilm = array(
-        'userid' => $USER->id,
-        'contextid' => $contextsystem->id,
-        'component' => 'mod_iassign',
-        'filearea' => 'ilm',
-        'itemid' => rand(1, 999999999),
-        'filepath' => '/iassign/ilm/' . iassign_utils::format_pathname($application_xml->name) . '/' . iassign_utils::format_pathname($application_xml->version) . '/',
-        'filename' => $value);
-
-      $file_ilm = $fs->create_file_from_pathname($file_ilm, $CFG->dataroot . '/temp/' . $value);
-
-      array_push($file_jar, $file_ilm->get_id());
+    // Check if the iLM directory is writable
+    if (!is_writable("ilm/")) {
+      print($OUTPUT->notification(get_string('error_folder_permission_denied', 'iassign'), 'notifyproblem'));
+      return null;
       }
 
+    // Check if iLM directory already exists
+    if (!file_exists("ilm/" . $application_xml->name)) {
+      mkdir("ilm/" . $application_xml->name, 0777, true);
+    }
+
+    // Check if iLM version already exists in directory
+    if (!file_exists("ilm/" . $application_xml->name . "/" . $application_xml->version)) {
+      mkdir("ilm/" . $application_xml->name . "/" . $application_xml->version, 0777, true);
+    } else {
+      print($OUTPUT->notification(get_string('error_import_ilm_version', 'iassign'), 'notifyproblem'));
+      return null;
+    }
+
+    $root_ilm = "ilm/" . $application_xml->name . "/" . $application_xml->version;
+    // Extract iLM files to directory
     foreach ($files_extract as $key => $value) {
       $file = $CFG->dataroot . '/temp/' . $key;
-      if (file_exists($file))
-        unlink($file);
+
+      if ($key == $application_xml->file_jar)
+        copy($file, $root_ilm . "/" . $key);
+
+      unlink($file);
+      } // foreach ($files_extract as $key => $value)
+
+    return $root_ilm . "/" . $application_xml->file_jar;
+    }
+
+
+    /// Function for list the directory where iLM is allocated.
+  //  @param type $dir
+  //  @return type
+  static function list_directory ($dir) {
+    $files = array();
+    $cont = 0;
+    $ffs = scandir($dir);
+    unset($ffs[array_search('.', $ffs, true)]);
+    unset($ffs[array_search('..', $ffs, true)]);
+    if (count($ffs) < 1) {
+      return;
       }
-    return $file_jar;
+    foreach ($ffs as $ff) {
+      $files[$cont] = $dir . "/" . $ff;
+      $cont++;
+      if (is_dir($dir . '/' . $ff)) {
+        $temp = self::list_directory($dir . '/' . $ff);
+        foreach ($temp as $t) {
+            $files[$cont] = $t;
+            $cont++;
+          }
+        }
+      }
+    return $files;
+    }
+
+  /// Function for delete directory where the iLM is allocated.
+  //  @param string $dirPath
+  //  @throws InvalidArgumentException
+  public static function delete_dir ($dirPath) {
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+      $dirPath .= '/';
+      }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+      if (is_dir($file)) {
+        self::delete_dir($file);
+      } else {
+        unlink($file);
+        }
+      }
+    rmdir($dirPath);
     }
 
   }

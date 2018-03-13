@@ -252,7 +252,8 @@ else if ($action == 'config') {
         $link_delete = $OUTPUT->action_link($url_delete, iassign_icons::insert('delete_ilm'));
         }
       else if (ilm_settings::applet_default($ilm_parent->file_jar)) {
-        $link_delete = "";
+        $url_delete = new moodle_url('/mod/iassign/settings_ilm.php', array('action' => 'confirm_delete_ilm', 'ilm_id' => $ilm_parent->id, 'ilm_parent' => $ilm->id));
+        $link_delete = $OUTPUT->action_link($url_delete, iassign_icons::insert('delete_ilm'));
         }
       else
         $link_delete = iassign_icons::insert('delete_ilm_disable');
@@ -306,11 +307,11 @@ else if ($action == 'config') {
 
       
       if (strtolower($ilm_parent->type) == 'java') {
-        $ilm_parent->file_jar = ilm_settings::applet_filetime($ilm_parent->file_jar);
+        $ilm_parent->file_jar = basename($ilm_parent->file_jar);
         }
 
-      $str .= '<tr><td colspan=3><strong>' . get_string('url_ilm', 'iassign') . ':</strong>&nbsp;<a href="' . $url_ilm . '" target="_blank">' . $url_ilm . '</a></td></tr>';
-      $str .= '<tr><td width="50%" title="field: file_jar"><strong>' . get_string('file_jar', 'iassign') . '</strong>&nbsp;' . $ilm_parent->file_jar . '</td>';
+      $str .= '<tr><td colspan=3><strong>' . get_string('url_ilm', 'iassign') . '</strong>&nbsp;<a href="' . $url_ilm . '" target="_blank">' . $url_ilm . '</a></td></tr>';
+      $str .= '<tr><td width="50%" title="field: file_jar"><strong>' . get_string('file_jar', 'iassign') . ':</strong>&nbsp;' . $ilm_parent->file_jar . '</td>';
       $str .= '<td width="50%" title="field: file_class"><strong>' . get_string('file_class', 'iassign') . ':</strong>&nbsp;' . $ilm_parent->file_class . '</td></tr>';
 
       $str .= '<tr><td width="50%" title="field: extension"><strong>' . get_string('extension', 'iassign') . ':</strong>&nbsp;' . $ilm_parent->extension . '</td>';
