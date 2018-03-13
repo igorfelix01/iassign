@@ -78,6 +78,8 @@ function xmldb_iassign_install() {
       else
         $ilm_exists = true;
       }
+      
+    $file_jar = $record['file_jar'];
 
     if (!empty($file_jar)) {
       $DB->insert_record('iassign_ilm', $record, false); // insert new iLM in the table '*_iassign_ilm'
