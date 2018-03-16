@@ -249,7 +249,7 @@ function xmldb_iassign_upgrade ($oldversion) {
     //---
     // Insert in talbe '{iassign_ilm}' the new iLM iFractions version 0.1.2017.11.22
     // Table 'iassign_ilm' : id name version type description url extension parent file_jar file_class width height enable timemodified author timecreated evaluate
-    $new_ilm_ifractions['name'] = 'iFractions';
+    /*$new_ilm_ifractions['name'] = 'iFractions';
     $new_ilm_ifractions['version'] = '0.1.2017.11.22';
     $new_ilm_ifractions['type'] = 'HTML5';
     $new_ilm_ifractions['description'] = '{"en":"Visual Interactive Fractions Learning","pt_br":"Aprendizagem visual interativa de frações"}';
@@ -265,9 +265,80 @@ function xmldb_iassign_upgrade ($oldversion) {
     $new_ilm_ifractions['author'] = $USER->id;
     $new_ilm_ifractions['timecreated'] = time();
     $new_ilm_ifractions['evaluate'] = 1;
-    $DB->insert_record('iassign_ilm', $new_ilm_ifractions, false); // insert new iLM in the table '{iassign_ilm}';
+    $DB->insert_record('iassign_ilm', $new_ilm_ifractions, false); // insert new iLM in the table '{iassign_ilm}';*/
 
     } // if ($oldversion < 2017120101)
+
+    if ($oldversion < 2018031000) {
+      // Verify if exist iLM with the same name
+      // then, update the version and file_jar
+
+      $records = array(
+        // iGeom 5.9.22
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGeom', 'http://www.matematica.br/igeom', '5.9.22', 'Java', '{"en":"Interactive Geometry on the Internet","pt_br":"Geometria Interativa na Internet"}', 'geo', 'ilm/iGeom/5.9.22/iGeom.jar', 'IGeomApplet.class', 800, 600, 1, time(), $USER->id, time(), 1)),
+        // iGraf 4.4.0.10
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iGraf', 'http://www.matematica.br/igraf', '4.4.0.10', 'Java', '{"en":"Interactive Graphic on the Internet","pt_br":"Gráficos Interativos na Internet"}', 'grf', 'ilm/iGraf/4.4.0.10/iGraf.jar', 'igraf.IGraf.class', 840, 600, 1, time(), $USER->id, time(), 1)),
+        // iComb 0.9.5
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iComb', 'http://www.matematica.br/icomb', '0.9.5', 'Java', '{"en":"Combinatorics Interactive on the Internet","pt_br":"Combinatória Interativa na Internet"}', 'icb,cmb', 'ilm/iComb/0.9.5/iComb.jar', 'icomb.IComb.class', 750, 685, 1, time(), $USER->id, time(), 1)),
+        // iVProg2 2.1.0
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), array('iVProg2', 'http://www.matematica.br/ivprog2', '2.1.0', 'Java', '{"en":"Visual Interactive Programming on the Internet","pt_br":"Programação visual interativa na Internet"}', 'ivp2', 'ilm/iVProg2/2.1.0/iVProg2.jar', 'usp.ime.line.ivprog.Ilm.class', 800, 700, 1, time(), $USER->id, time(), 1)),
+        // iTangram2 0.4.6
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
+                array('iTangram2', 'http://www.matematica.br/itangram', '0.4.6', 'Java', '{"en":"The Objective of the game is to reproduce the form of the model using all 7 pieces of iTangram","pt_br":"O Objetivo do jogo é reproduzir a forma do modelo usando todas as 7 peças do iTangram"}', 'itg2', 'ilm/iTangram2/0.4.6/iTangram2.jar', 'ilm.line.itangram2.Tangram', 800, 600, 1, time(), $USER->id, time(), 1)),
+        // iHanoi 3.1.0
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
+                array('iHanoi', 'http://www.matematica.br/ihanoi', '3.1.0', 'Java', '{"en":"The Objective to move N discs from stick A to C, following some rule (from the game Towers of Hanoi)","pt_br":"O objetivo é mover N discos da haste A para C, seguindo algumas regras (implementa o jogo Torres de Hanói)"}', 'ihn', 'ilm/iHanoi/3.1.0/iHanoi.jar', 'ihanoi.iHanoi', 730, 450, 1, time(), $USER->id, time(), 1)),
+        // Risco 2
+        array_combine(
+                array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'),
+                array('Risko', 'http://risko.pcc.usp.br/', '2.2.23', 'Java', '{"en":"Interactive computational tool for teaching geometry","pt_br":"Ferramenta computacional interativa para o ensino de geometria"}', 'rsk', 'ilm/Risko/2.2.23/Risko.jar', 'RiskoApplet.class', 800, 600, 1, time(), $USER->id, time(), 0)),
+        // iVProgH5 0.1 - HTML5
+        array_combine(
+                 array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), 
+                 array('iVProgH5', 'http://www.matematica.br/ivprogh5', '0.1.0', 'HTML5', '{"en":"Visual Interactive Programming on the Internet HTML5","pt_br":"Programação visual interativa na Internet"}', 'ivph', 'ilm/iVProgH5/0.1.0/ivprog-html/', 'main.html', 800, 600, 1, time(), $USER->id, time(), 1)),
+        // fractions 0.1.2017.11.22 - HTML5
+        array_combine(
+                 array('name', 'url', 'version', 'type', 'description', 'extension', 'file_jar', 'file_class', 'width', 'height', 'enable', 'timemodified', 'author', 'timecreated', 'evaluate'), 
+                 array('iFractions', 'http://www.matematica.br/ifractions', '0.1.2017.11.22', 'HTML5', '{"en":"Visual Interactive Fractions Learning","pt_br":"Aprendizagem visual interativa de frações"}', 'frc', 'ilm/iFractions/0.1.2017.11.22/ifractions/', 'index.html', 1000, 600, 1, time(), $USER->id, time(), 1))
+          );
+
+      foreach ($records as $record) {
+
+        // Verify if there is a iLM register to update it
+        $iassign_ilm = $DB->get_record('iassign_ilm', array('name' => $record['name'], 'version' => $record['version']));
+
+        if ($iassign_ilm) {
+          // Update file_jar and file_class
+          $newentry = new stdClass();
+          $newentry->id = $iassign_ilm->id;
+          $newentry->file_jar = $record['file_jar'];
+          $newentry->file_class = $record['file_class'];
+
+          $DB->update_record("iassign_ilm", $newentry);
+        } else {
+          // If not found a iLM with the same name and version, search a
+          // different version, to use as parent of new version
+
+          $iassign_ilm_parent = $DB->get_record('iassign_ilm', array('name' => $record['name'], 'parent' => 0));
+
+          if ($iassign_ilm_parent) {
+            $record['parent'] = $iassign_ilm_parent->id;
+            $DB->insert_record('iassign_ilm', $record, false); // insert with parent
+          } else {
+            $DB->insert_record('iassign_ilm', $record, false); // insert new iLM in the table '*_iassign_ilm' without a parent
+          }
+        }
+        
+      } // foreach ($records as $record) 
+      
+    } // if ($oldversion < 2018031000)
+
     
 
   // log event -----------------------------------------------------
