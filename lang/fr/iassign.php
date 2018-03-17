@@ -502,3 +502,6 @@ $string['ilm_type'] = 'Sélectionnez le type iLM';
 $string['ilm_type_help'] = 'S\'il vous plaît, sélectionnez le type iLM: <br> - JAVA: généralement un paquet avec un fichier JAR <br> - HTML5: généralement un paquet avec un dossier à l\'intérieur';
 $string['type_ilm'] = 'iLM Type';
 $string['duplicated_activity'] = 'Affectation interactive enregistrée avec succès.';
+$string['move_activity'] = 'Déplacer l\'activité';
+$string['move_destination'] = 'Sélectionnez la destination';
+$string['moved_activity'] = 'L\'affectation interactive a été déplacée avec succès.';

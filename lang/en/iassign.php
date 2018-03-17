@@ -489,3 +489,6 @@ $string['ilm_type'] = 'Select iLM type';
 $string['ilm_type_help'] = 'Please, select the iLM type: <br> - JAVA: usually a package with a JAR file <br> - HTML5: usually a package with a folder inside';
 $string['type_ilm'] = 'iLM Type';
 $string['duplicated_activity'] = 'Interactive assignment duplicated successfully.';
+$string['move_activity'] = 'Move activity';
+$string['move_destination'] = 'Select destination';
+$string['moved_activity'] = 'Interactive assignment moved successfully.';

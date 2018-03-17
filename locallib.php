@@ -281,7 +281,8 @@ class iassign {
       'add' => '$this->add_edit_iassign();',
       'edit' => '$this->add_edit_iassign();',
       'get_answer' => '$this->get_answer();',
-      'duplicate_activity' => '$this->duplicate_activity();');
+      'duplicate_activity' => '$this->duplicate_activity();',
+      'move_activity' => '$this->move_activity();');
 
     $action_iassign_restricted = array_merge($restricted, $action_iassign_limit, $action_iassign);
     
@@ -299,13 +300,67 @@ class iassign {
       }
     } // function action()
 
+
+  /// This method moves an iAssign activity
+  function move_activity() {
+    global $USER, $CFG, $DB, $COURSE;
+    
+    $iassign_id = optional_param('iassign_current', NULL, PARAM_TEXT);
+    $iassign_destiny = optional_param('iassign_destiny', NULL, PARAM_TEXT);
+
+    $updateentry = new stdClass();
+    $updateentry->id = $iassign_id;
+    $updateentry->iassignid = $iassign_destiny;
+
+    // Update the iassign_statement
+    $DB->update_record("iassign_statement", $updateentry);
+
+    // Update file context
+    $c_i = context_module::instance($this->cm->id);
+    $ret = get_coursemodule_from_id("iassign", $c_i->instanceid);
+    
+    $course_module_info = $DB->get_record("course_modules", array("course" => $COURSE->id, "module" => $ret->module, "instance" => $iassign_destiny));
+    
+    $path_module = context_course::instance($COURSE->id);
+    
+    $context_file = $DB->get_record_sql('SELECT * FROM {context} WHERE instanceid="' . $course_module_info->id . '" AND path like "'.$path_module->path.'%"');
+
+    if ($context_file) {
+      $id_context = $context_file->id;
+
+      $iassign_statement = $DB->get_record("iassign_statement", array("id" => $iassign_id));
+      $fs = get_file_storage();
+
+      $files = $fs->get_area_files(context_module::instance($this->cm->id)->id, 'mod_iassign', 'exercise', $iassign_statement->file);
+
+      foreach ($files as $value) {
+        if ($value->get_filename() != ".") {
+
+          $newfile = $fs->create_file_from_storedfile(array('contextid' => $id_context, 'component' => 'mod_iassign', 'filearea' => 'exercise', 'itemid' => $value->get_itemid() + $iassign_id), $value);
+
+          $updateentry = new stdClass();
+          $updateentry->id = $iassign_id;
+          $updateentry->file = $newfile->get_itemid();
+
+          $DB->update_record("iassign_statement", $updateentry);
+
+          $fs->delete_area_files(context_module::instance($this->cm->id)->id, 'mod_iassign', 'exercise', $value->get_itemid());
+
+          break;
+        }
+      }
+    }
+
+    $this->return_home_course('moved_activity');
+    exit;
+  }
   
   /// This method duplicates an iAssign activity
   function duplicate_activity() {
     global $USER, $CFG, $COURSE, $DB, $OUTPUT;
 
     $id = $this->cm->id;
-    $iassignid = optional_param('iassign_current', NULL, PARAM_TEXT);;
+    $iassignid = optional_param('iassign_current', NULL, PARAM_TEXT);
 
     $context = context_module::instance($this->cm->id);
 
@@ -331,8 +386,6 @@ class iassign {
 
       foreach ($files as $value) {
         if ($value->get_filename() != ".") {
-          echo  $value->get_itemid() . " : " . $value->get_filename()."<br>";
-
           $newfile = $fs->create_file_from_storedfile(array('contextid' => $context->id, 'component' => 'mod_iassign', 'filearea' => 'exercise', 'itemid' => $value->get_itemid() + $id_), $value);
 
           $updateentry = new stdClass();
@@ -2695,10 +2748,136 @@ class iassign {
 
   /// Display all iAssigns
   function show_iassign ($title, $iassign_array, $i) {
-    global $USER, $CFG, $DB, $OUTPUT;
+    global $USER, $CFG, $DB, $OUTPUT, $PAGE;
 
     $id = $this->cm->id;
+
+    //print_r(context_block::instance(59));
+
     print $OUTPUT->box_start();
+    print '<script type="text/javascript">
+       //<![CDATA[
+        function validate_move() {
+          var radios = document.getElementsByName("iassign_destiny");
+          var formValid = false;
+
+          var i = 0;
+          while (!formValid && i < radios.length) {
+              if (radios[i].checked) formValid = true;
+              i++;        
+          }
+
+          if (!formValid) {
+            document.getElementById("move_dest").classList.add("alert-danger");
+          }
+          return formValid;
+        }
+
+        var modal;
+        function load_move(id_ias) {
+          document.form_move_activity.iassign_current.value = id_ias;
+          modal.style.display = "block";
+
+          var radios = document.getElementsByName("iassign_destiny");
+          
+          var i = 0;
+          while (i < radios.length) {
+              radios[i].checked = false;
+              i++;        
+          }
+
+          document.getElementById("move_dest").classList.remove("alert-danger");
+        }
+        function load_modal_elements() {
+          modal = document.getElementById("myModal");
+          var span = document.getElementById("close_modal");
+          span.onclick = function() {
+              modal.style.display = "none";
+          }
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+        }
+        window.onload = load_modal_elements; 
+        //]]>
+        </script>';
+    print '<div id="myModal" class="modal">
+            <div class="modal-content">
+              <span id="close_modal">&times;</span>
+              <div id="modal_title" class="moodle-dialogue-hd yui3-widget-hd">'.get_string('move_activity', 'iassign').'</div>
+              <div style="padding: 10px; padding-left: 20px;" id="move_dest">'.get_string('move_destination', 'iassign').':
+              <div style="margin: 5px;">';
+
+    $ccm = get_coursemodule_from_id('iassign', optional_param('id', 0, PARAM_INT));
+
+    $radios = "<form name='form_move_activity'><input type='hidden' name='action' value='move_activity' />
+      <input type='hidden' name='id' value='".optional_param('id', NULL, PARAM_TEXT)."' />  <input type='hidden' name='iassign_current' value='' />";
+    $iassigns = $DB->get_records("iassign", array("course" => $PAGE->course->id));
+    foreach ($iassigns as $iassign) {
+      if ($ccm->instance == $iassign->id) {
+        $radios .= '<li><input type="radio" disabled="disabled" id="radio_'.$iassign->id.'" name="iassign_destiny" value="'.$iassign->id.'">
+          <label for="radio_'.$iassign->id.'">'.$iassign->name.'</label></li>';
+      } else {
+        $radios .= '<li><input type="radio" id="radio_'.$iassign->id.'" name="iassign_destiny" value="'.$iassign->id.'">
+          <label class="input_move" for="radio_'.$iassign->id.'">'.$iassign->name.'</label></li>';
+      }
+    }
+               
+    print '<ul style="list-style-type: none">' . $radios . '<center><input type="submit" value="OK" onClick="return validate_move();" /> &nbsp; <input type="button" value="'.get_string('cancel', 'iassign').'" onClick="modal.style.display = \'none\';" /></center></ul></form></div></div> </div></div>';
+    
+    print '<style>.modal { 
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: scroll;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 10px 10px;
+                border: 1px solid #888;
+                width: 50%;
+            }
+            #close_modal {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                margin-top: -15px;
+                margin-right: -3px;
+            }
+            #close_modal:hover,
+            #close_modal:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            #modal_title {
+                min-height: 3rem;
+                color: initial;
+                background: initial;
+                font-size: 1.5rem;
+                line-height: 1.5;
+                padding: 15px;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .input_move {
+              width: 90%;
+              padding: 2px;
+            }
+            .input_move:hover {
+              background: #eff0ef;
+            }
+            </style>';
+
     if (has_capability('mod/iassign:viewiassignall', $this->context, $USER->id)) {
       print "<p><font color='#0000aa'><strong>" . $title . "</strong></font></p>";
       for ($j = 0; $j < $i; $j ++) {
@@ -2749,6 +2928,7 @@ class iassign {
           $link_visible_show = "&nbsp;<a href='view.php?action=visible$aux'>" . iassign_icons::insert('show_iassign') . "</a>";
           $link_edit = "&nbsp;<a href='view.php?action=edit$aux'>" . iassign_icons::insert('edit_iassign') . "</a>";
           $link_duplicate_activity = "&nbsp;<a href='view.php?action=duplicate_activity$aux' >" . iassign_icons::insert('duplicate_iassign') . "</a>\n";
+          $link_move_activity = "&nbsp;<a href='#' onclick='load_move($iassign_current); return false;' >" . iassign_icons::insert('move_activity') . "</a>\n";
           if (count($iassign_array) > 1) {
             if ($j == 0)
               $links .= $link_down;
@@ -2764,7 +2944,7 @@ class iassign {
           else
             $links .= $link_visible_hide;
 
-          $links .= $link_duplicate_activity;
+          $links .= $link_duplicate_activity . $link_move_activity;
           } // if ($USER->iassignEdit == 1 && has_capability('mod/iassign:editiassign', $this->context, $USER->id))
 
         print '<p>' . $links . '</p>' . "\n";

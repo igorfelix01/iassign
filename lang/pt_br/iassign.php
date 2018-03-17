@@ -500,3 +500,6 @@ $string['ilm_type_help'] = 'Please, select the iLM type: <br> - JAVA: usually a 
 $string['ilm_type_help'] = 'Por favor, selecione o tipo de iLM: <br> - JAVA: geralmente um pacote contendo um arquivo JAR <br> - HTML5: geralmente um pacote com uma pasta em seu conteúdo';
 $string['type_ilm'] = 'Tipo de iLM';
 $string['duplicated_activity'] = 'Atividade interativa duplicada com sucesso.';
+$string['move_activity'] = 'Mover atividade';
+$string['move_destination'] = 'Selecione o destino';
+$string['moved_activity'] = 'Atividade interativa movida com sucesso.';
