@@ -501,3 +501,4 @@ $string['error_xml_missing'] = 'ERREUR: les attributs suivants sont manquants da
 $string['ilm_type'] = 'Sélectionnez le type iLM';
 $string['ilm_type_help'] = 'S\'il vous plaît, sélectionnez le type iLM: <br> - JAVA: généralement un paquet avec un fichier JAR <br> - HTML5: généralement un paquet avec un dossier à l\'intérieur';
 $string['type_ilm'] = 'iLM Type';
+$string['duplicated_activity'] = 'Affectation interactive enregistrée avec succès.';

@@ -280,7 +280,8 @@ class iassign {
       'deleteyes' => '$this->activity->deleteyes($this->return, $this);',
       'add' => '$this->add_edit_iassign();',
       'edit' => '$this->add_edit_iassign();',
-      'get_answer' => '$this->get_answer();');
+      'get_answer' => '$this->get_answer();',
+      'duplicate_activity' => '$this->duplicate_activity();');
 
     $action_iassign_restricted = array_merge($restricted, $action_iassign_limit, $action_iassign);
     
@@ -298,6 +299,58 @@ class iassign {
       }
     } // function action()
 
+  
+  /// This method duplicates an iAssign activity
+  function duplicate_activity() {
+    global $USER, $CFG, $COURSE, $DB, $OUTPUT;
+
+    $id = $this->cm->id;
+    $iassignid = optional_param('iassign_current', NULL, PARAM_TEXT);;
+
+    $context = context_module::instance($this->cm->id);
+
+    $contextuser = context_user::instance($USER->id);
+
+    // Get the the iAssign acitivity to be duplicated
+    $iassign_statement = $DB->get_record("iassign_statement", array("id" => $iassignid));
+
+    // Remove the current id of activity
+    $iassign_statement->id=0;
+
+    // Get the information about current author, and add this information in author_modified field
+    $author = $DB->get_record("user", array('id' => $USER->id));
+    $iassign_statement->author_modified_name = $author->firstname . '&nbsp;' . $author->lastname;
+    $iassign_statement->author_modified = $iassign_statement->author_modified_name;
+
+    // Store the activity in the table
+    if ($id_ = $DB->insert_record("iassign_statement", $iassign_statement)) {
+
+      // Duplicate activity file
+      $fs = get_file_storage();
+      $files = $fs->get_area_files($context->id, 'mod_iassign', 'exercise', $iassign_statement->file);
+
+      foreach ($files as $value) {
+        if ($value->get_filename() != ".") {
+          echo  $value->get_itemid() . " : " . $value->get_filename()."<br>";
+
+          $newfile = $fs->create_file_from_storedfile(array('contextid' => $context->id, 'component' => 'mod_iassign', 'filearea' => 'exercise', 'itemid' => $value->get_itemid() + $id_), $value);
+
+          $updateentry = new stdClass();
+          $updateentry->id = $id_;
+          $updateentry->file = $newfile->get_itemid();
+
+          // Update the duplicated iLM iAssign with new file id
+          $DB->update_record("iassign_statement", $updateentry);
+        }
+      }
+    }
+
+    // log event --------------------------------------------------------------------------------------
+    iassign_log::add_log('duplicate_iassign_exercise', 'name: ' . $author->firstname, $id_, $this->cm->id);
+
+    $this->return_home_course('duplicated_activity');
+    exit;
+  }
 
   /// This method gets the content from the iLM and register it
   //  It could be the exercise (teacher) or an answer (student)
@@ -2695,6 +2748,7 @@ class iassign {
           $link_visible_hide = "&nbsp;<a href='view.php?action=visible$aux'>" . iassign_icons::insert('hide_iassign') . "</a>";
           $link_visible_show = "&nbsp;<a href='view.php?action=visible$aux'>" . iassign_icons::insert('show_iassign') . "</a>";
           $link_edit = "&nbsp;<a href='view.php?action=edit$aux'>" . iassign_icons::insert('edit_iassign') . "</a>";
+          $link_duplicate_activity = "&nbsp;<a href='view.php?action=duplicate_activity$aux' >" . iassign_icons::insert('duplicate_iassign') . "</a>\n";
           if (count($iassign_array) > 1) {
             if ($j == 0)
               $links .= $link_down;
@@ -2709,6 +2763,8 @@ class iassign {
             $links .= $link_visible_show;
           else
             $links .= $link_visible_hide;
+
+          $links .= $link_duplicate_activity;
           } // if ($USER->iassignEdit == 1 && has_capability('mod/iassign:editiassign', $this->context, $USER->id))
 
         print '<p>' . $links . '</p>' . "\n";

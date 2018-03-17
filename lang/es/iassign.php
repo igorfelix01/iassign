@@ -502,3 +502,4 @@ $string['error_xml_missing'] = 'ERROR: el archivo XML carece de los siguientes a
 $string['ilm_type'] = 'Seleccione el tipo de iLM';
 $string['ilm_type_help'] = 'Seleccione el tipo de iLM: <br> - JAVA: generalmente un paquete con un archivo JAR <br> - HTML5: por lo general, un paquete con una carpeta dentro';
 $string['type_ilm'] = 'Tipo iLM';
+$string['duplicated_activity'] = 'Actividad interactiva plegada con éxito.';
